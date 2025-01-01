@@ -16,7 +16,7 @@ sudo pacman -S --noconfirm --needed base-devel
 # Symlink configurations using Stow
 echo "Symlinking dotfiles..."
 cd "$DOTFILES_DIR"
-stow .
+stow * -t ~ --adopt
 
 # Set Zsh as the default shell
 if [ "$SHELL" != "/bin/zsh" ]; then
@@ -35,6 +35,14 @@ if ! command -v yay &> /dev/null; then
 fi
 
 echo "Installing AUR packages with yay..."
-yay -S gotop nnn
+yay -S gotop nnn github-cli rustup
+
+echo "Setting up Rust..."
+rustup default nightly
+rustup default nightly
+
+echo "Setting up Github SSH..."
+gh auth login --git-protocol ssh
+gh status
 
 echo "Setup complete! Please reboot your system."

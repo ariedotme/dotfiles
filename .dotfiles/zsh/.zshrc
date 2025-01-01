@@ -10,6 +10,7 @@ alias vim="nvim"
 alias v="nvim"
 alias top="gotop"
 alias nnn="n"
+alias stow-all="stow * -t ~ --adopt"
 
 bindkey -s '^o' 'n\n'
 
