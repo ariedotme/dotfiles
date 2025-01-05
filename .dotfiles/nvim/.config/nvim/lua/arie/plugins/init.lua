@@ -1,7 +1,4 @@
 return {
-  -- Blazing fast lazy language pack for syntax highlight and identation.
-  -- I might regret using it instead of treesitter eventually.
-  "sheerun/vim-polyglot",
   {
     "luukvbaal/nnn.nvim",
     config = function()
@@ -17,5 +14,24 @@ return {
       vim.keymap.set("n", "<C-O>", ":NnnPicker<CR>")
       vim.api.nvim_set_hl(0, "NnnBorder", { bg = "NONE" })
     end
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+        ensure_installed = { "c", "lua", "vim", "elixir", "css", "javascript", "html", "rust", "yuck", "go", "typescript" },
+        sync_install = true,
+        highlight = { enable = true },
+        indent = { enable = true },
+      })
+    end
+  },
+  {
+    "dundalek/parpar.nvim",
+    dependencies = { "gpanders/nvim-parinfer", "julienvincent/nvim-paredit" },
+    opts = {}
   },
 }

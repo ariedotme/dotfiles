@@ -8,7 +8,7 @@ export NNN_BMS="d:$HOME/Downloads;c:$HOME/.config;w:$HOME/workspaces;h:$HOME"
 
 alias vim="nvim"
 alias v="nvim"
-alias top="gotop"
+alias top="gotop --nvidia"
 alias nnn="n"
 alias stow-all="stow * -t ~ --adopt"
 
@@ -54,6 +54,12 @@ nnn_cd()
 
 trap nnn_cd EXIT
 
+path+=('/home/arie/.cargo/bin')
+
+
+# Starting from here everything is generated, do not touch
+
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -89,3 +95,10 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# bun completions
+[ -s "/home/arie/.bun/_bun" ] && source "/home/arie/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
