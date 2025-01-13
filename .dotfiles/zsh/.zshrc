@@ -1,4 +1,5 @@
 export EDITOR=nvim
+export BROWSER=google-chrome-stable
 export TMPDIR=/home/arie/.temp
 export NNN_PLUG="f:fzcd;p:preview-tui"
 export NNN_TERMINAL="kitty"
@@ -102,3 +103,6 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Created by `pipx` on 2025-01-10 22:35:17
+export PATH="$PATH:/home/arie/.local/bin"

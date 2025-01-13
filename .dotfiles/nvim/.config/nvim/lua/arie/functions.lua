@@ -23,5 +23,3 @@ function _G.paste_and_edit()
 
   vim.cmd("startinsert")
 end
-
-vim.api.nvim_set_keymap('n', '<leader>p', ':lua paste_and_edit()<CR>', { noremap = true, silent = true })

@@ -77,11 +77,13 @@ curl -fsSL https://bun.sh/install | bash
 sudo yay -S --noconfirm --needed elixir
 
 # Tools for C/C++ Development
-sudo yay -S --noconfirm --needed clang cmake make gdb lldb valgrind ninja gcc
-
+sudo yay -S --noconfirm --needed clang cmake make gdb lldb valgrind ninja gcc clang-tools-extra
 
 # Rust
 sudo yay -S --noconfirm -needed rustup
 rustup default nightly
+
+echo "Installing cargo packages..."
+cargo install neocmakelsp
 
 echo "Setup complete! Please reboot your system. Run `gh auth login` after the reboot."

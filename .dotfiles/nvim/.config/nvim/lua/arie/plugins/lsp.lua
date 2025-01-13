@@ -13,15 +13,18 @@ return {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "j-hui/fidget.nvim",
-      "folke/trouble.nvim"
+      "nvim-java/nvim-java"
     },
     config = function()
       vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+
+      require("java").setup()
 
       require("conform").setup({
         formatters_by_ft = {
           rust = { "rustfmt", lsp_format = "fallback" },
           lua = { "stylua" },
+          cpp = { "clang-format" },
         },
         format_on_save = {
           timeout_ms = 500,
@@ -45,11 +48,16 @@ return {
       )
       require("fidget").setup({})
       require("mason").setup()
+
+      local lspconfig = require("lspconfig")
+      lspconfig.jdtls.setup({})
       require("mason-lspconfig").setup({
         ensure_installed = {
           "lua_ls",
           "rust_analyzer",
           "gopls",
+          "clangd",
+          "zls"
         },
         handlers = {
           function(server_name) -- default handler (optional)
@@ -57,24 +65,10 @@ return {
               capabilities = capabilities
             }
           end,
-
-          zls = function()
-            local lspconfig = require("lspconfig")
-            lspconfig.zls.setup({
-              root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
-              settings = {
-                zls = {
-                  enable_inlay_hints = true,
-                  enable_snippets = true,
-                  warn_style = true,
-                },
-              },
-            })
-            vim.g.zig_fmt_parse_errors = 0
-            vim.g.zig_fmt_autosave = 0
+          ["zls"] = function()
+            lspconfig.zls.setup {}
           end,
           ["lua_ls"] = function()
-            local lspconfig = require("lspconfig")
             lspconfig.lua_ls.setup {
               capabilities = capabilities,
               settings = {
@@ -123,6 +117,32 @@ return {
         },
       })
 
+      local configs = require("lspconfig.configs")
+      local nvim_lsp = require("lspconfig")
+      if not configs.neocmake then
+        configs.neocmake = {
+          default_config = {
+            cmd = { "neocmakelsp", "--stdio" },
+            filetypes = { "cmake" },
+            root_dir = function(fname)
+              return nvim_lsp.util.find_git_ancestor(fname)
+            end,
+            single_file_support = true, -- suggested
+            on_attach = on_attach,      -- on_attach is the on_attach function you defined
+            init_options = {
+              format = {
+                enable = true
+              },
+              lint = {
+                enable = true
+              },
+              scan_cmake_in_package = true -- default is true
+            }
+          }
+        }
+        nvim_lsp.neocmake.setup({})
+      end
+
       require("trouble").setup {}
     end
   },
@@ -138,9 +158,25 @@ return {
   {
     "aznhe21/actions-preview.nvim",
     config = function()
-      vim.keymap.set({ "v", "n" }, "gf", require("actions-preview").code_actions)
+      vim.keymap.set({ "v", "n" }, "<C-g>", require("actions-preview").code_actions)
     end,
   },
+  {
+    "folke/trouble.nvim",
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xq",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    }
+  }
   --    {
   --        "mrcjkb/rustaceanvim",
   --        lazy = false,
