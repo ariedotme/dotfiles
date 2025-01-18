@@ -4,4 +4,4 @@ require("arie.lazy")
 require("arie.functions")
 require("arie.keys")
 
-vim.cmd.colorscheme "catppuccin-frappe"
+vim.cmd.colorscheme "catppuccin"

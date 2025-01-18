@@ -7,6 +7,10 @@ export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_FCOLORS="D4DEB778E79F9F67D2E5E5D2"
 export NNN_BMS="d:$HOME/Downloads;c:$HOME/.config;w:$HOME/workspaces;h:$HOME"
 
+export WLR_NO_HARDWARE_CURSORS=1
+export WLR_RENDERER_ALLOW_SOFTWARE=1
+export WLR_DRM_NO_ATOMIC=1
+
 alias vim="nvim"
 alias v="nvim"
 alias top="gotop --nvidia"
@@ -109,3 +113,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Created by `pipx` on 2025-01-10 22:35:17
 export PATH="$PATH:/home/arie/.local/bin"
 . "/home/arie/.deno/env"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
