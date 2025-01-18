@@ -12,6 +12,7 @@ alias v="nvim"
 alias top="gotop --nvidia"
 alias nnn="n"
 alias stow-all="stow * -t ~ --adopt"
+alias restart-waybar="pkill waybar && hyprctl dispatch exec waybar"
 
 bindkey -s '^o' 'n\n'
 
@@ -56,7 +57,8 @@ nnn_cd()
 trap nnn_cd EXIT
 
 path+=('/home/arie/.cargo/bin')
-
+path+=('/home/arie/.config/emacs/bin')
+path+=('/home/arie/.bin')
 
 # Starting from here everything is generated, do not touch
 
@@ -106,3 +108,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Created by `pipx` on 2025-01-10 22:35:17
 export PATH="$PATH:/home/arie/.local/bin"
+. "/home/arie/.deno/env"
