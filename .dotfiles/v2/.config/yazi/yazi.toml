@@ -1,0 +1,19 @@
+[manager]
+show_hidden = true
+title_format = "y - {cwd}"
+
+[preview]
+wrap = "yes"
+image_filter = "lanczos3"
+
+
+[opener]
+mpv = [{ run = 'mpv "$@"', orphan = true, for = "unix" }]
+swayimg = [{ run = 'swayimg "$@"', orphan = true, for = "unix" }]
+
+
+[open]
+prepend_rules = [
+  { mime = "video/*", use = "mpv" },
+  { mime = "image/*", use = "swayimg" },
+]

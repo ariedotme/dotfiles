@@ -1,0 +1,110 @@
+	font = "Sans"
+
+	font-size = 15
+
+	font-features = ""
+
+	font-variations = ""
+
+	hint-font = true
+
+	prompt-background = #00000000
+	prompt-background-padding = 0
+	prompt-background-corner-radius = 0
+
+	placeholder-background = #00000000
+	placeholder-background-padding = 0
+	placeholder-background-corner-radius = 0
+
+	input-background = #00000000
+	input-background-padding = 0
+	input-background-corner-radius = 0
+
+	default-result-background = #00000000
+	default-result-background-padding = 0
+	default-result-background-corner-radius = 0
+
+	selection-background = #00000000
+	selection-background-padding = 0
+	selection-background-corner-radius = 0
+
+	text-cursor-style = bar
+
+	text-cursor-corner-radius = 0
+
+	prompt-text = " run: "
+
+	prompt-padding = 0
+
+	placeholder-text = ""
+
+	num-results = 0
+
+	result-spacing = 0
+
+	horizontal = false
+
+	min-input-width = 0
+
+	width = 800
+	height = 300
+
+	outline-width = 0
+
+	border-width = 4
+
+  border-color = #babbf1
+
+	corner-radius = 0
+
+	padding-top = 0
+	padding-bottom = 0
+	padding-left = 0
+	padding-right = 0
+
+	clip-to-padding = true
+
+	scale = true
+
+	output = ""
+
+	anchor = center
+
+	exclusive-zone = -1
+
+	margin-top = 0
+	margin-bottom = 0
+	margin-left = 0
+	margin-right = 0
+
+	hide-cursor = false
+
+	text-cursor = false
+
+	history = true
+
+	auto-accept-single = false
+
+	hide-input = false
+
+	hidden-character = "*"
+
+	physical-keybindings = true
+
+	print-index = false
+
+	drun-launch = false
+
+	terminal = foot
+
+	late-keyboard-init = false
+
+	multi-instance = false
+
+	ascii-input = false
+
+
+text-color = #c6d0f5
+prompt-color = #c6d0f5
+selection-color = #e5c890
+background-color = #303446

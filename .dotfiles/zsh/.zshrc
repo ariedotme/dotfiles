@@ -1,11 +1,11 @@
 export EDITOR=nvim
-export BROWSER=google-chrome-stable
+export BROWSER=librewolf
 export TMPDIR=/home/arie/.temp
-export NNN_PLUG="f:fzcd;p:preview-tui"
-export NNN_TERMINAL="kitty"
-export NNN_FIFO="/tmp/nnn.fifo"
-export NNN_FCOLORS="D4DEB778E79F9F67D2E5E5D2"
-export NNN_BMS="d:$HOME/Downloads;c:$HOME/.config;w:$HOME/workspaces;h:$HOME"
+
+setopt hist_ignore_all_dups inc_append_history
+HISTFILE=~/.zsh_history
+SAVEHIST=4096
+HISTSIZE=4096
 
 export WLR_NO_HARDWARE_CURSORS=1
 export WLR_RENDERER_ALLOW_SOFTWARE=1
@@ -14,51 +14,23 @@ export WLR_DRM_NO_ATOMIC=1
 alias vim="nvim"
 alias v="nvim"
 alias top="gotop --nvidia"
-alias nnn="n"
 alias stow-all="stow * -t ~ --adopt"
 alias restart-waybar="pkill waybar && hyprctl dispatch exec waybar"
 
-bindkey -s '^o' 'n\n'
+bindkey -s '^o' 'y\n'
 
-n ()
-{
-    # Block nesting of nnn in subshells
-    [ "${NNNLVL:-0}" -eq 0 ] || {
-        echo "nnn is already running"
-        return
-    }
-
-    # The behaviour is set to cd on quit (nnn checks if NNN_TMPFILE is set)
-    # If NNN_TMPFILE is set to a custom path, it must be exported for nnn to
-    # see. To cd on quit only on ^G, remove the "export" and make sure not to
-    # use a custom path, i.e. set NNN_TMPFILE *exactly* as follows:
-    #      NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-
-    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
-    # stty start undef
-    # stty stop undef
-    # stty lwrap undef
-    # stty lnext undef
-
-    # The command builtin allows one to alias nnn to n, if desired, without
-    # making an infinitely recursive alias
-    command nnn "$@" -H
-
-    [ ! -f "$NNN_TMPFILE" ] || {
-        . "$NNN_TMPFILE"
-        rm -f -- "$NNN_TMPFILE" > /dev/null
-    }
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
 }
 
-nnn_cd()                                                                                                   
-{
-    if ! [ -z "$NNN_PIPE" ]; then
-        printf "%s\0" "0c${PWD}" > "${NNN_PIPE}" !&
-    fi  
+function ru() {
+    $*[1] & exit
 }
-
-trap nnn_cd EXIT
 
 path+=('/home/arie/.cargo/bin')
 path+=('/home/arie/.config/emacs/bin')
